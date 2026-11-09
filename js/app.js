@@ -189,6 +189,15 @@ function bootstrap() {
     if (el) {
       e.preventDefault();
       go(el.dataset.go);
+      return;
+    }
+
+    // Reservar deshabilitado con carrito vacío: no navega
+    const navReserve = e.target.closest('[data-nav="reserve"]');
+    if (navReserve && navReserve.classList.contains("is-disabled")) {
+      e.preventDefault();
+      e.stopPropagation();
+      toast("Agrega productos al carrito para reservar", "info");
     }
   });
 

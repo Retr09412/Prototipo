@@ -127,6 +127,19 @@ export function updateBadges(count) {
     el.textContent = String(getState().user.points);
   });
 
+  // Reservar solo disponible con artículos en el carrito
+  const reserveOff = n === 0;
+  document.querySelectorAll('[data-nav="reserve"]').forEach((el) => {
+    el.classList.toggle("is-disabled", reserveOff);
+    if (reserveOff) {
+      el.setAttribute("aria-disabled", "true");
+      el.setAttribute("title", "Agrega productos al carrito para reservar");
+    } else {
+      el.removeAttribute("aria-disabled");
+      el.removeAttribute("title");
+    }
+  });
+
   // La barra flotante del carrito la gestiona app.js (updateFab)
 }
 
