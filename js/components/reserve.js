@@ -240,7 +240,7 @@ export function ReserveView(root, ctx) {
     state.slotISO = fresh.slotISO;
 
     const onlyRapid = !needsSlot();
-    const slotOk = !onlyRapid || Boolean(state.slotISO);
+    const slotOk = onlyRapid || Boolean(state.slotISO);
     const ready = Boolean(state.pickupId && slotOk);
 
     root.innerHTML = `

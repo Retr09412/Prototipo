@@ -43,9 +43,10 @@ export function parseHash() {
 }
 
 /* ---------- Toasts ---------- */
-export function toast(message, type = "success", duration = 2600) {
+export function toast(message, type = "success", duration) {
   const host = document.getElementById("toastHost");
   if (!host) return;
+  const ms = duration || (type === "info" ? 4200 : 2600);
   const el = document.createElement("div");
   el.className = `toast toast-${type}`;
   const iconName =
@@ -58,7 +59,7 @@ export function toast(message, type = "success", duration = 2600) {
   setTimeout(() => {
     el.classList.add("is-leaving");
     setTimeout(() => el.remove(), 260);
-  }, duration);
+  }, ms);
 }
 
 /* icono inline mínimo (evita ciclo con icons.js en runtime crítico) */
