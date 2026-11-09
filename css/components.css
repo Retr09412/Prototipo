@@ -85,6 +85,9 @@
 .btn-block { width: 100%; }
 
 .btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 44px;
   min-height: 44px;
   padding: 0;
@@ -571,7 +574,8 @@
 .toast-host {
   position: fixed;
   left: 50%;
-  bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px);
+  top: calc(var(--topbar-height) + var(--safe-bottom, 0px) + 12px);
+  bottom: auto;
   transform: translateX(-50%);
   z-index: calc(var(--z-toast) + 10);
   display: flex;
@@ -583,7 +587,12 @@
 }
 
 @media (min-width: 768px) {
-  .toast-host { bottom: 28px; }
+  .toast-host {
+    top: auto;
+    bottom: 28px;
+  }
+  .toast { animation-name: fadeUp; }
+  .toast.is-leaving { animation-name: fadeOutDown; }
 }
 
 .toast {
@@ -598,10 +607,15 @@
   color: var(--text);
   font-size: var(--fs-md);
   font-weight: var(--fw-medium);
-  animation: fadeUp var(--dur-normal) var(--ease-spring) both;
+  animation: fadeDown var(--dur-normal) var(--ease-spring) both;
   width: 100%;
   text-align: left;
   line-height: 1.35;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .toast.toast-info {
@@ -618,6 +632,9 @@
   animation: fadeOut var(--dur-normal) var(--ease-out) both;
 }
 @keyframes fadeOut {
+  to { opacity: 0; transform: translateY(-8px); }
+}
+@keyframes fadeOutDown {
   to { opacity: 0; transform: translateY(8px); }
 }
 
